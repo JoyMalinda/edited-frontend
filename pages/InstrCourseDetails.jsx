@@ -1,6 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import gmailIcon from '../images/icons8-gmail-50.png';
+import massGmailIcon from '../images/icons8-gmail-50 (1).png';
+import googleMeetIcon from '../images/icons8-google-meet-50.png';
 
 
 function InstrCourseDetails() {
@@ -35,7 +37,8 @@ function InstrCourseDetails() {
     description: "ML concepts explained.",
     students: [
       { name: "Aquila Jedidia", email:"aquilaexample@gmail.com", progress: 100 },
-      { name: "Boniface Muguro", progress: 70 },
+      { name: "Boniface Muguro", email:"boniface@gmail.com", progress: 70 },
+      { name: "Grace Zawadi", email: "zawadi@gmail.com", progress: 90 },
     ],
   },
 };
@@ -57,15 +60,42 @@ function InstrCourseDetails() {
       >
         Edit Course
       </button>
-
+      <div className="flex justify-between items-center">
       <h2 className="text-xl font-semibold mb-2 text-black">Enrolled Students</h2>
+      <div className="flex space-x-5">
+      <a
+        href={`https://mail.google.com/mail/?view=cm&fs=1&to=${course.students.map(s => s.email).join(',')}&su=Course+Update&body=Dear+student,`}
+        target="_blank"
+        title="Send Email to All Students"
+        rel="noopener noreferrer"
+      >
+      <img
+          src={massGmailIcon}
+          alt="Send Emails to All Students"
+          className="w-[40px] h-[40px] cursor-pointer"
+      />
+      </a>
+      <a
+        href="https://meet.google.com/"
+        target="_blank"
+        title="Create a Meeting"
+        rel="noopener noreferrer"
+      >
+        <img
+          src={googleMeetIcon}
+          alt="Create a Meeting"
+          className="w-[40px] h-[40px] cursor-pointer"
+        />
+      </a>
+      </div>
+      </div>
       <ul className="space-y-2">
         {course.students.map((student, index) => (
           <li
             key={index}
             className="p-4 bg-slate-50 border rounded-xl flex justify-between items-center"
           >
-            <div>
+            <div className="flex space-x-4">
             <span className="font-medium text-black">{student.name}</span>
             <a
                 href={`https://mail.google.com/mail/?view=cm&fs=1&to=${student.email}&su=Progress+Update&body=Hello+${encodeURIComponent(student.name)},`}
@@ -74,7 +104,7 @@ function InstrCourseDetails() {
             >
                <img
                     src={gmailIcon}
-                    alt="Send Email"
+                    alt="Send Email to Student"
                     className="w-5 h-5 cursor-pointer"
                 />
               </a>
